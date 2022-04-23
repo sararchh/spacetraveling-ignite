@@ -1,9 +1,11 @@
-import { GetStaticProps } from 'next';
+import Link from 'next/link';
 import Head from 'next/head';
 import Header  from '../components/Header';
 
 import Prismic from '@prismicio/client';
 import { getPrismicClient } from '../services/prismic';
+
+import { GetStaticProps } from 'next';
 
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
@@ -12,7 +14,6 @@ import { IoCalendarClearOutline, IoPersonOutline } from 'react-icons/io5';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
-import Link from 'next/link';
 import React from 'react';
 
 interface Post {
@@ -116,7 +117,8 @@ export default function Home({ postsPagination }: HomeProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false, previewData }) => {
+export const getStaticProps: GetStaticProps<HomeProps> = async ({ preview = false, previewData }) => {
+
   const prismic = getPrismicClient();
 
   const response = await prismic.query(
